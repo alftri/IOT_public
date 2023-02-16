@@ -1,42 +1,30 @@
-# define BUZZER 8
-# define DO 261.63 
-# define RE 293.66
-# define MI 329.63
-# define FA 349.23
-# define SOL 392.00
-# define LA 440
-# define SI 493.88
+//Importo la libreria para manejar la pantalla
+#include <LiquidCrystal_I2C.h>
+//defino los parametros de la pantalla
+#define LCD_COLS 16
+#define LCD_ROWS 2
+#define LCD_ADDRESS 0x27
 
-int cancion[] = {DO,  RE,  MI,  FA,  SOL, LA,  SI,  DO*2};
-int tiempos[] = {500, 500, 500, 500, 500, 500, 500, 500};
+LiquidCrystal_I2C lcd(LCD_ADDRESS, LCD_COLS, LCD_ROWS);  
 
-void setup() {
-    
+void setup(){
+  // initialize LCD
+  lcd.init();
+  // turn on LCD backlight                      
+  lcd.backlight();
 }
 
-void loop() {
-  tone(BUZZER, DO);
+void loop(){
+  // set cursor to first column, first row
+  lcd.setCursor(0, 0);
+  // print message
+  lcd.print("Hello, World!");
   delay(1000);
-  tone(BUZZER, RE);
+  // clears the display to print new message
+  lcd.clear();
+  // set cursor to first column, second row
+  lcd.setCursor(0,1);
+  lcd.print("Hello, World!");
   delay(1000);
-  tone(BUZZER, MI);
-  delay(1000);
-  tone(BUZZER, FA);
-  delay(1000);
-  tone(BUZZER, SOL);
-  delay(1000);
-  tone(BUZZER, LA);
-  delay(1000);
-  tone(BUZZER, SI);
-  delay(1000);
-  tone(BUZZER, DO *2);
-  delay(1000);
- 
-  /*
-  //Otra manera de tocar la canción
-  for (int i=0; i<sizeof(cancion);i++){
-  	tone(BUZZER, cancion[i]);
-  	delay(tiempos[i]);
-  }
-  */  
+  lcd.clear(); 
 }
